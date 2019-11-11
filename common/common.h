@@ -12,6 +12,10 @@
 #include <db.h>
 #include <regex.h>		/* May refer to the bundled regex. */
 
+#ifdef HAVE_SYS_AUXV_H
+#include <sys/auxv.h>
+#endif
+
 /*
  * Forward structure declarations.  Not pretty, but the include files
  * are far too interrelated for a clean solution.

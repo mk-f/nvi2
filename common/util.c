@@ -144,7 +144,18 @@ expanduser(char *str)
 		continue;
 	if (t == p) {
 		/* ~ */
-		if (issetugid() != 0 ||
+#if defined(HAVE_SYS_AUXV_H)
+		unsigned long elevated;
+		int errsv;
+		errno = 0;
+		elevated = getauxval (AT_SECURE);
+		errsv = errno;
+		if (errsv)
+			return (NULL);
+#else
+		int elevated = issetugid();
+#endif
+		if (elevated != 0 ||
 		    (h = getenv("HOME")) == NULL) {
 			if (((h = getlogin()) != NULL &&
 			     (pwd = getpwnam(h)) != NULL) ||

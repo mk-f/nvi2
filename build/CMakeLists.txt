@@ -21,6 +21,7 @@ endfunction()
 if(DEBUG)
 	set(_arg_str "${CMAKE_C_FLAGS} -O0 -g"
 		"-isystem /usr/include/bsd -DLIBBSD_OVERLAY"
+		"-DHAVE_SYS_AUXV_H"
 		"-DCOMLOG"
 		"-Wall"
 		"-Wno-parentheses"
