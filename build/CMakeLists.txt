@@ -90,6 +90,9 @@ endif(NOT RESOLV_IN_LIBC)
 
 include_directories(. ..)
 
+include_directories(../db.1.85/PORT/linux/include)
+add_subdirectory(../db.1.85/PORT/linux db_build)
+
 find_library(_curses_lib NAMES ncurses curses HINTS /usr/lib)
 find_library(_cursesw_lib NAMES ncursesw cursesw curses HINTS /usr/lib)
 mark_as_advanced(_curses_lib _cursesw_lib)
@@ -150,8 +153,8 @@ configure_file(${CMAKE_SOURCE_DIR}/pathnames.h.in
 configure_file(${CMAKE_SOURCE_DIR}/recover.in
 	${CMAKE_SOURCE_DIR}/recover @ONLY)
 
-add_executable(nvi ${MAIN_SRCS} ${MAIN_PROTOS})
-target_link_libraries(nvi ${CURSES_LIBRARY} ${UTIL_LIBRARY} ${RESOLV_LIBRARY})
+add_executable(nvi ${DB_SRCS} ${MAIN_SRCS} ${MAIN_PROTOS})
+target_link_libraries(nvi ${CURSES_LIBRARY} ${UTIL_LIBRARY} ${RESOLV_LIBRARY} db)
 if(USE_WIDECHAR)
 	target_link_libraries(nvi regex)
 	if(USE_ICONV)
