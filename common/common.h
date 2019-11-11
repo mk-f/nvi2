@@ -86,3 +86,8 @@ typedef enum { SEQ_ABBREV, SEQ_COMMAND, SEQ_INPUT } seq_t;
 #include "mem.h"
 
 #include "extern.h"
+
+/* TCSASOFT is a BSD extension */
+#ifndef TCSASOFT
+# define TCSASOFT 0
+#endif
