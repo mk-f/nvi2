@@ -20,6 +20,7 @@ endfunction()
 
 if(DEBUG)
 	set(_arg_str "${CMAKE_C_FLAGS} -O0 -g"
+		"-isystem /usr/include/bsd -DLIBBSD_OVERLAY"
 		"-DCOMLOG"
 		"-Wall"
 		"-Wno-parentheses"
@@ -154,7 +155,7 @@ configure_file(${CMAKE_SOURCE_DIR}/recover.in
 	${CMAKE_SOURCE_DIR}/recover @ONLY)
 
 add_executable(nvi ${DB_SRCS} ${MAIN_SRCS} ${MAIN_PROTOS})
-target_link_libraries(nvi ${CURSES_LIBRARY} ${UTIL_LIBRARY} ${RESOLV_LIBRARY} db)
+target_link_libraries(nvi -lbsd ${CURSES_LIBRARY} ${UTIL_LIBRARY} ${RESOLV_LIBRARY} db)
 if(USE_WIDECHAR)
 	target_link_libraries(nvi regex)
 	if(USE_ICONV)
