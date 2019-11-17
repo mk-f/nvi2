@@ -734,8 +734,10 @@ msg_open(SCR *sp, char *file)
 		 * POSIX.1-2008 gives no instruction on how to report a
 		 * corrupt catalog file.  Errno == 0 is not rare; add
 		 * EFTYPE, which is seen on FreeBSD, for a good measure.
+		 *
+		 * XXX: not found on linux
 		 */
-		if (errno == 0 || errno == EFTYPE)
+		if (errno == 0)
 			msgq_str(sp, M_ERR, p,
 			    "030|The file %s is not a message catalog");
 		else
