@@ -265,7 +265,7 @@ cscope_add(SCR *sp, EXCMD *cmdp, CHAR_T *dname)
 	csc->dname = csc->buf;
 	csc->dlen = len;
 	memcpy(csc->dname, np, len);
-	csc->mtim = sb.st_mtimespec;
+	csc->mtim = sb.st_mtim;
 
 	/* Get the search paths for the cscope. */
 	if (get_paths(sp, csc))
@@ -816,7 +816,7 @@ csc_file(SCR *sp, CSC *csc, char *name, char **dirp, size_t *dlenp, int *isolder
 			*dirp = *pp;
 			*dlenp = strlen(*pp);
 			*isolderp = timespeccmp(
-			    &sb.st_mtimespec, &csc->mtim, <);
+			    &sb.st_mtim, &csc->mtim, <);
 			return;
 		}
 		free(buf);
